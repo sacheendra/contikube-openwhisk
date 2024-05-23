@@ -1,30 +1,29 @@
+affinity:
+  enabled: false
+
+toleration:
+  enabled: false
+
+invoker:
+  options: "-Dwhisk.kubernetes.user-pod-node-affinity.enabled=false"
+  containerFactory:
+    impl: "kubernetes"
+
 controller:
   replicaCount: 1
 whisk:
   ingress:
     type: NodePort
-    apiHostName: 192.168.55.2
+    apiHostName: 127.0.0.1
     apiHostPort: 31001
   limits:
     actionsInvokesPerminute: 10000
     actionsInvokesConcurrent: 10000
-    actions:
-      time:
-        min: "10ms"
-        max: "5m"
-        std: "100ms"
-      memory:
-        min: "3500m"
-        max: "3500m"
-        std: "3500m"
 k8s:
   persistence:
     enabled: false
 nginx:
   httpsNodePort: 31001
-invoker:
-  containerFactory:
-    impl: "kubernetes"
 metrics:
   prometheusEnabled: false
   userMetricsEnabled: false

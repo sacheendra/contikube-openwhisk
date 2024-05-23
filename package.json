@@ -1,0 +1,15 @@
+{
+  "name": "kube-openwhisk",
+  "version": "1.0.0",
+  "description": "Requires at least a 3 node kubernetes cluster. One for kubernetes control place, one for openwhisk control plane, and the rest for invokers.",
+  "main": "run-experiment.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "openwhisk": "^3.21.8"
+  },
+  "type": "module"
+}
