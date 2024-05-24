@@ -26,28 +26,30 @@ async function read_args() {
 }
 
 async function setup() {
-    let createdActions = []
     const actionFile = await readFile("hello.js", {encoding: "utf8"})
 
     // await ow.actions.delete({name: "seq1"}, )
-    for (let i=0;i<depth;i++) {
-        const actionName = `hello${i}`
-        // await ow.actions.delete({name: actionName})
+    for (let i=0;i<parallelism;i++) {
+        let createdActions = []
+        for (let j=0;j<depth;j++) {
+            const actionName = `hello_${i}_${j}`
+            // await ow.actions.delete({name: actionName})
+            await ow.actions.create({
+                name: actionName,
+                overwrite: true,
+                kind: "nodejs:12",
+                action: actionFile
+            })
+            createdActions.push(actionName)
+        }
+        // console.log(createdActions)
         await ow.actions.create({
-            name: actionName,
+            name: `seq_${i}`,
             overwrite: true,
-            kind: "nodejs:12",
-            action: actionFile
+            sequence: createdActions.map((n) => "/guest/"+n)
         })
-        createdActions.push(actionName)
     }
 
-    // console.log(createdActions)
-    await ow.actions.create({
-        name: "seq1",
-        overwrite: true,
-        sequence: createdActions.map((n) => "/guest/"+n)
-    })
     console.log("Created sequence")
 }
 
@@ -55,12 +57,16 @@ async function run_exp() {
     const invocations = []
     const promises = []
     for(let i=0;i<parallelism;i++) {
-        const promise = ow.actions.invoke("seq1")
         const start = Date.now()
+        const promise = ow.actions.invoke({
+            name: `seq_${i}`,
+            result: true
+        })
         invocations.push({
             start: start
         })
         const chain = promise.then((result) => {
+            // console.log(result, Date.now())
             invocations[i].end = Date.now()
             return result
         })

@@ -31,6 +31,7 @@ wsk -i action invoke hello --result
 1. Install Node.JS
 2. Install packages using npm install.
 3. RUn the experiment using `node run-experiment.js <depth> <parallelism> <ietrations> <output_folder>`
+4. Use `kubectl delete pods -l user-action-pod=true` to delete pods between subsequent runs.
 
 ## Running the Sebs benchmark
 1. Install zip, containerd, docker.io, python3-venv, libcurl4-openssl-dev, and libssl-dev on the cloud controller node.
