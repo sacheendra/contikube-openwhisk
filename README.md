@@ -30,8 +30,10 @@ wsk -i action invoke hello --result
 ## Run the simple benchmark
 1. Install Node.JS
 2. Install packages using npm install.
-3. RUn the experiment using `node run-experiment.js <depth> <parallelism> <ietrations> <output_folder>`
-4. Use `kubectl delete pods -l user-action-pod=true` to delete pods between subsequent runs.
+3. Install Openwhisk.
+4. Change kubernetes config and openwhisk parameter in js file.
+5. Run the experiment using `node run-experiment.js <depth> <parallelism> <ietrations> <output_folder>`
+6. Use `kubectl delete pods -l user-action-pod=true` to delete pods between subsequent runs.
 
 ## Running the Sebs benchmark
 1. Install zip, containerd, docker.io, python3-venv, libcurl4-openssl-dev, and libssl-dev on the cloud controller node.
