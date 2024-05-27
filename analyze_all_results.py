@@ -31,8 +31,8 @@ ggplot(df) +\
 all_dfs = []
 for result_file in result_files:
     metadata_splits = result_file.split("/")[2].split(".")[0].split("_")
-    depth = int(metadata_splits[1].split("-")[1])
-    parallelism = int(metadata_splits[2].split("-")[1])
+    depth = metadata_splits[1].split("-")[1]
+    parallelism = metadata_splits[2].split("-")[1]
     iters = int(metadata_splits[3].split("-")[1])
     df = pd.read_csv(result_file, header=None)
     df.columns = ["start", "end"]
